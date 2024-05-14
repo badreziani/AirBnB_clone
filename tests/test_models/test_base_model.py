@@ -5,6 +5,7 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
+
 class TestBase(unittest.TestCase):
     """This class defines test suites"""
 
@@ -30,12 +31,12 @@ class TestBase(unittest.TestCase):
     def test_instance_attributes(self):
         """Test for instance attributes"""
 
-        #test for id attribute
+        # test for id attribute
         self.assertTrue(hasattr(self.b1, 'id'))
         self.assertEqual(type(self.b1.id), str)
         self.assertNotEqual(self.b1.id, self.b2.id)
 
-        #test for created_at and updated_at attributes
+        # test for created_at and updated_at attributes
         self.assertEqual(type(self.b1.created_at), datetime)
         self.assertNotEqual(self.b1.created_at, self.b1.updated_at)
         self.assertNotEqual(self.b1.created_at, self.b2.updated_at)
@@ -47,7 +48,7 @@ class TestBase(unittest.TestCase):
 
     def test_save_method(self):
         """Test the save() method"""
-        
+
         time1 = self.b1.updated_at
         self.b1.save()
         time2 = self.b1.updated_at
@@ -61,5 +62,30 @@ class TestBase(unittest.TestCase):
 
         dictionary = self.b1.to_dict()
         self.assertTrue("__class__" in dictionary.keys())
+        self.assertTrue("id" in dictionary.keys())
+        self.assertTrue("updated_at" in dictionary.keys())
+        self.assertTrue("created_at" in dictionary.keys())
         self.assertTrue(type(dictionary["created_at"]), str)
         self.assertTrue(type(dictionary["updated_at"]), str)
+
+    def test_init_method(self):
+        """Test for updated init method"""
+
+        b1_dict = self.b1.to_dict()
+
+        # test for when *kwargs is empty or None
+        new_b1_instance = BaseModel(None)
+        self.assertTrue(hasattr(new_b1_instance, "__class__"))
+
+        # test for when *kwargs is not empty
+        new_b2_instance = BaseModel(**b1_dict)
+        self.assertEqual(new_b2_instance.__class__.__name__, "BaseModel")
+        self.assertTrue(hasattr(new_b2_instance, "__class__"))
+        self.assertTrue(hasattr(new_b2_instance, "created_at"))
+        self.assertTrue(hasattr(new_b2_instance, "updated_at"))
+        self.assertTrue(hasattr(new_b2_instance, "id"))
+        self.assertTrue(hasattr(new_b2_instance, "id"))
+        self.assertTrue(type(new_b2_instance.id), str)
+        self.assertTrue(type(new_b2_instance.created_at), datetime)
+        self.assertTrue(type(new_b2_instance.updated_at), datetime)
+        self.assertFalse(new_b2_instance == self.b1)
