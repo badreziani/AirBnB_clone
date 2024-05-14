@@ -22,7 +22,9 @@ class BaseModel:
         instance_id = self.id
         instance_dict = self.__dict__
 
-        return "[{:s}] ({:s}) {}".format(class_name, instance_id, instance_dict)
+        return "[{:s}] ({:s}) {}".format(
+                class_name, instance_id, instance_dict
+                )
 
     def save(self):
         """Updates time stamp on instance"""
