@@ -20,7 +20,8 @@ class BaseModel:
         """Initialization method"""
 
         if kwargs:
-            del kwargs["__class__"]
+            if "__class__" in kwargs:
+                del kwargs["__class__"]
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     value = datetime.fromisoformat(value)
@@ -31,6 +32,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+        print(dir(self))
 
     def __str__(self):
         """Returns a string representation of the object.
