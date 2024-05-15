@@ -34,23 +34,23 @@ class FileStorage:
 
         if obj is not None and hasattr(obj, "id"):
             self.__class__.__objects[f'{obj.__class__.__name__}.{obj.id}'] = obj
-            print(self.__class__.__objects)
 
     def save(self):
         """serializes __objects to the JSON file."""
         
         try:
             with open(self.__class__.__file_path, "w") as f:
-                json.dump(self.__class__.__objects, f)
-        except:
-            pass
+                dict_to_save = {k: v.to_dict() for k, v in self.__class__.__objects.items()}
+                json.dump(dict_to_save, f)
+        except Exception as err:
+            print(err)
+            
 
     def reload(self):
         """deserializes the JSON file to __objects."""
-
-        with open(self.__class__.__file_path) as f:
-            print("File exist")
-            test = json.load(f)
-            print("===================================")
-            print(test)
-            print("===================================")
+        try:
+            with open(self.__class__.__file_path) as f:
+                loaded_dict = json.load(f)
+                self.__class__.__objects = loaded_dict
+        except Exception as err:
+            print(f"Error {err}")
