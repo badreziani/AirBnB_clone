@@ -6,6 +6,7 @@ the BaseModel class.
 
 from datetime import datetime
 import uuid
+from engine import storage
 
 
 class BaseModel:
@@ -49,6 +50,7 @@ class BaseModel:
         """
 
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """Returns a dictionary containing all keys/values
