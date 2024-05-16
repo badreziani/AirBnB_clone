@@ -3,22 +3,27 @@
 HBNB command interpreter to manage your AirBnB objects.
 """
 
-from cmd import Cmd
+import cmd
 
-class Hbnb(Cmd):
+
+class HBNBCommand(cmd.Cmd):
+    """HBNBCommand class.
+    """
+
     prompt = "(hbnb) "
 
     def do_quit(self, line):
-        """Exits the console."""
+        """Quit command to exit the program\n"""
         return True
 
     def do_EOF(self, line):
-        """Exits the console."""
+        """Handles EOF key to exit the program\n"""
         print()
         return True
 
     def emptyline(self):
         print(end="")
 
+
 if __name__ == "__main__":
-    Hbnb().cmdloop()
+    HBNBCommand().cmdloop()
