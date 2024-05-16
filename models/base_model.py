@@ -3,6 +3,7 @@
 
 from datetime import datetime
 import uuid
+from models import storage
 
 
 class BaseModel:
@@ -16,13 +17,13 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     value = datetime.fromisoformat(value)
-
                 # set attributes of instance with dict keys/values parsed
                 setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """Unofficial representation of instance"""
@@ -38,7 +39,10 @@ class BaseModel:
     def save(self):
         """Updates time stamp on instance"""
 
-        self.updated_at = datetime.now()
+        # isoformat added to make object serializable when dumped
+        # cos it fails on datetime object not being serializable.
+        self.updated_at = datetime.now().isoformat()
+        storage.save()
 
     def to_dict(self):
         """Returns a dictionary representation of instance"""
