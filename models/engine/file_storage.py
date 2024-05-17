@@ -9,6 +9,7 @@ import os
 import json
 from json.decoder import JSONDecodeError
 from ..base_model import BaseModel
+from ..user import User
 
 
 class FileStorage:

@@ -8,13 +8,13 @@ import shlex
 
 from models import storage
 from models.base_model import BaseModel
-
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class.
     """
 
-    ALLOWED_CLASSES = ["BaseModel"]
+    ALLOWED_CLASSES = ["BaseModel", "User"]
     prompt = "(hbnb) "
 
     def do_quit(self, line):
