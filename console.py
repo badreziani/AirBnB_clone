@@ -9,12 +9,26 @@ import shlex
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand class.
     """
 
-    ALLOWED_CLASSES = ["BaseModel", "User"]
+    ALLOWED_CLASSES = [
+            "BaseModel",
+            "User",
+            "State",
+            "City",
+            "Amenity",
+            "Place",
+            "Review"
+            ]
     prompt = "(hbnb) "
 
     def do_quit(self, line):
