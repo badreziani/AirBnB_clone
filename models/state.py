@@ -1,4 +1,4 @@
-#/bin/usr/python3
+#!/bin/usr/python3
 """
 state module - contains definition for class State
 """

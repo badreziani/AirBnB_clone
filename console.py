@@ -73,7 +73,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print(obj)
 
-
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id\n"""
         args = shlex.split(line)
@@ -131,7 +130,6 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     setattr(all_objs[f"{args[0]}.{args[1]}"], args[2], args[3])
                     storage.save()
-
 
 
 if __name__ == "__main__":

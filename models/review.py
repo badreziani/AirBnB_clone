@@ -1,4 +1,4 @@
-#/bin/usr/python3
+#!/bin/usr/python3
 """
 review module - contains definition for class Review
 """
@@ -13,7 +13,7 @@ class Review(BaseModel):
         user_id: string
         text: string
     """
-    
+
     place_id = ""
     user_id = ""
-    text = "" 
+    text = ""
