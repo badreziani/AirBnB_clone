@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-"""New Place Class"""
+"""New Amenity Class"""
 
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Place Class that inherits from BaseModel"""
+    """Amenity Class that inherits from BaseModel"""
 
     city_id = ""
     user_id = ""
