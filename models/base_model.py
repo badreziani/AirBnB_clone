@@ -41,20 +41,26 @@ class BaseModel:
 
         # isoformat added to make object serializable when dumped
         # cos it fails on datetime object not being serializable.
-        self.updated_at = datetime.now().isoformat()
+        self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
         """Returns a dictionary representation of instance"""
 
-        instance_dict = self.__dict__
+        instance_dict = self.__dict__.copy()
         instance_dict["__class__"] = self.__class__.__name__
 
-        # convert created_at and updated_at attributes to string
-        created_at = instance_dict["created_at"].isoformat()
-        updated_at = instance_dict["updated_at"].isoformat()
+        if not isinstance(self.created_at, str):
+            created_at = self.created_at.isoformat()
+        else:
+            created_at = self.created_at
 
-        # update created_at and updated_at valies in dictionary
+        if not isinstance(self.updated_at, str):
+            updated_at = self.updated_at.isoformat()
+        else:
+            updated_at = self.updated_at
+
+        # update created_at and updated_at values in dictionary
         instance_dict["created_at"] = created_at
         instance_dict["updated_at"] = updated_at
 
