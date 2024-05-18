@@ -19,20 +19,18 @@ class FileStorage:
     def new(self, obj):
         """sets obj in __objects dictionary"""
 
-        # __objects contains instances at this point
-        # so we have to keep them in a serializable form
-        for key, value in FileStorage.__objects.items():
-            FileStorage.__objects[key] = value.to_dict()
-
         # make the new obj serializable as well
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__objects[key] = obj.to_dict()
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """Serializes dictionary __objects to JSON file"""
 
         with open(FileStorage.__file_path, "w", encoding="utf-8") as file:
-            json.dump(FileStorage.__objects, file)
+            temp_dict = FileStorage.__objects.copy()
+            for key, value in temp_dict.items():
+                temp_dict[key] = value.to_dict()
+            json.dump(temp_dict, file)
 
     def reload(self):
         """desirializes saved content in JSON file to __objects dictionary"""
