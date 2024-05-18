@@ -9,7 +9,11 @@ class HBNBCommand(cmd.Cmd):
     """Command line processor"""
 
     prompt = "(hbnb) "
-    class_list = ["BaseModel", "User"]
+    class_list = [
+            "BaseModel", "User", "State",
+            "State", "City", "Amenity",
+            "Place", "Review"
+            ]
 
     def do_quit(self, line):
         """Quit command to exit program"""
