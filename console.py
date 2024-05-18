@@ -3,6 +3,12 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -47,11 +53,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        if line == "BaseModel":
-            instance = BaseModel()
-            instance.save()
-            print(instance.id)
-        return
+        for clas in self.class_list:
+            if line == clas:
+                instance = eval(line)()
+                instance.save()
+                print(instance.id)
+                return
 
     def do_show(self, line):
         """Prints the string representation of an instance"""
