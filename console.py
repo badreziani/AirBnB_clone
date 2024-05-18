@@ -94,15 +94,19 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         """Prints all string representation of all instances\n"""
         args = shlex.split(line)
+        
+        objs_list = []
         if len(args) == 0:
             all_objs = storage.all()
             for key, value in all_objs.items():
-                print(value)
+                objs_list.append(str(value))
+            print(objs_list)
         elif len(args) >= 1 and args[0] in HBNBCommand.ALLOWED_CLASSES:
             all_objs = storage.all()
             for key, value in all_objs.items():
                 if key == f"{args[0]}.{value.id}":
-                    print(value)
+                    objs_list.append(str(value))
+            print(objs_list)
         else:
             print("** class doesn't exist **")
 
