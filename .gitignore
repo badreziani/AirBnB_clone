@@ -1,2 +1,5 @@
 __pycache__/
+code_by_task/
+test_base_model_dict.py
+test_model.py
 main.py
