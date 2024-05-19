@@ -17,6 +17,11 @@ class TestUser(unittest.TestCase):
         """Sets up User class instances"""
 
         self.u1 = User()
+        self.u1.first_name = "Betty"
+        self.u1.last_name = "Bar"
+        self.u1.email = "airbnb@mail.com"
+        self.u1.password = "root"
+
         self.u2 = User()
 
     def tearDown(self):
@@ -31,6 +36,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.u1.__class__.__name__, "User")
         self.assertEqual(type(self.u1), User)
         self.assertTrue(isinstance(self.u1, BaseModel))
+        self.assertTrue(issubclass(self.u1.__class__, BaseModel))
         self.assertTrue(isinstance(self.u1, User))
 
     def test_instance_attributes(self):
@@ -40,6 +46,23 @@ class TestUser(unittest.TestCase):
         self.assertTrue(hasattr(self.u1, 'id'))
         self.assertEqual(type(self.u1.id), str)
         self.assertNotEqual(self.u1.id, self.u2.id)
+
+        # tests for email attribute
+        self.assertTrue(hasattr(self.u1, 'email'))
+        self.assertEqual(type(self.u1.email), str)
+        self.assertTrue("@" in str(self.u1.email))
+
+        # tests for password attribute
+        self.assertTrue(hasattr(self.u1, 'password'))
+        self.assertEqual(type(self.u1.password), str)
+
+        # tests for first_name attribute
+        self.assertTrue(hasattr(self.u1, 'first_name'))
+        self.assertEqual(type(self.u1.first_name), str)
+
+        # tests for last_name attribute
+        self.assertTrue(hasattr(self.u1, 'last_name'))
+        self.assertEqual(type(self.u1.last_name), str)
 
         # test for created_at and updated_at attributes
         self.assertEqual(type(self.u1.created_at), datetime)
@@ -81,6 +104,10 @@ class TestUser(unittest.TestCase):
         dictionary = self.u1.to_dict()
         self.assertTrue("__class__" in dictionary.keys())
         self.assertTrue("id" in dictionary.keys())
+        self.assertTrue("email" in dictionary.keys())
+        self.assertTrue("password" in dictionary.keys())
+        self.assertTrue("first_name" in dictionary.keys())
+        self.assertTrue("last_name" in dictionary.keys())
         self.assertTrue("updated_at" in dictionary.keys())
         self.assertTrue("created_at" in dictionary.keys())
         self.assertTrue(type(dictionary["created_at"]), str)
@@ -89,7 +116,7 @@ class TestUser(unittest.TestCase):
     def test_init_method(self):
         """Test for updated init method"""
 
-        b1_dict = self.u1.to_dict()
+        b1_dict = self.u2.to_dict()
 
         # test for when *kwargs is empty or None
         new_b1_instance = User(None)
@@ -102,11 +129,10 @@ class TestUser(unittest.TestCase):
         self.assertTrue(hasattr(new_b2_instance, "created_at"))
         self.assertTrue(hasattr(new_b2_instance, "updated_at"))
         self.assertTrue(hasattr(new_b2_instance, "id"))
-        self.assertTrue(hasattr(new_b2_instance, "id"))
         self.assertTrue(type(new_b2_instance.id), str)
         self.assertTrue(type(new_b2_instance.created_at), datetime)
         self.assertTrue(type(new_b2_instance.updated_at), datetime)
-        self.assertFalse(new_b2_instance == self.u1)
+        self.assertFalse(new_b2_instance == self.u2)
 
     def test_file_storage_class(self):
         """ Test instance serialization to JSON file """
