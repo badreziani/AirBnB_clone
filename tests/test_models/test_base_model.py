@@ -59,7 +59,7 @@ class TestBase(unittest.TestCase):
                 self.b2.__class__.__name__, id_, dict_
                 )
         self.assertEqual(printed_output, expected_output)
-        
+
         # reset stdout to terminal output
         sys.stdout = sys.__stdout__
 
