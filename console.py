@@ -171,9 +171,21 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        pattern = r'\".*?\"|\'.*?\'|\S+'
-        matches = re.findall(pattern, line)
-        args = [match.strip('"') for match in matches]
+        if '{' in line and '}' in line:
+            pattern = r'(\w+) "([\w-]+)" (\{.+)'
+            match = re.match(pattern, line)
+            if match:
+                args = []
+                args.append(match.group(1))
+                args.append(match.group(2))
+                args.append(match.group(3))
+                # args[2] = args[2].replace("\\", "")
+                # print(args[2])
+        else:
+            pattern = r'\".*?\"|\'.*?\'|\S+'
+            matches = re.findall(pattern, line)
+            args = [match.strip('"') for match in matches]
+
         all_objs = storage.all()
 
         if args[0] not in HBNBCommand.class_list:
@@ -203,24 +215,39 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
             return
 
-        if len(args) == 3:
+        if len(args) == 3 and ('{' not in args[2] and '}' not in args[2]):
             print("** value missing **")
             return
 
         for key, obj in all_objs.items():
-            if args[0] == obj.__class__.__name__ and args[1] == obj.id:
-                try:
-                    args[3] = int(args[3])
-                    setattr(obj, args[2], args[3])
-                except ValueError:
+            if '{' not in args[2] and '}' not in args[2]:
+                if args[0] == obj.__class__.__name__ and args[1] == obj.id:
                     try:
-                        args[3] = float(args[3])
+                        args[3] = int(args[3])
                         setattr(obj, args[2], args[3])
                     except ValueError:
-                        setattr(
-                                obj, args[2].strip('"').strip("'"),
-                                args[3].strip('"').strip("'")
-                                )
+                        try:
+                            args[3] = float(args[3])
+                            setattr(obj, args[2], args[3])
+                        except ValueError:
+                            setattr(
+                                    obj, args[2].strip('"').strip("'"),
+                                    args[3].strip('"').strip("'")
+                                    )
+            else:
+                if args[0] == obj.__class__.__name__ and args[1] == obj.id:
+                    args[2] = eval(args[2])
+                    for key, value in args[2].items():
+                        try:
+                            value = int(value)
+                            setattr(obj, key, value)
+                        except ValueError:
+                            try:
+                                value = float(value)
+                                setattr(obj, key, value)
+                            except ValueError:
+                                setattr(obj, key, value)
+
         storage.save()
         return
 
@@ -246,7 +273,17 @@ class HBNBCommand(cmd.Cmd):
         if match:
             cls = match.group(1)
             method = match.group(2)
-            args = match.group(3).split(', ')
+            args = match.group(3)
+
+            if '{' in args and '}' in args:
+                parts = args.split(',', 1)
+                id_ = parts[0].strip()
+                dict_ = parts[1].strip()
+                line = "{:s} {:s} {:s} {:s}".format(method, cls, id_, dict_)
+                return line
+            else:
+                args = match.group(3).split(', ')
+
             if len(args) > 3:
                 args = args[0:3]
                 print(args)
