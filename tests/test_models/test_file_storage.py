@@ -39,15 +39,6 @@ class TestFileStorage(unittest.TestCase):
             model = BaseModel(**value)
             self.assertTrue(isinstance(model, BaseModel))
 
-    '''
-    def test_json_file_exist(self):
-        """This tests for the existence of the json file
-        upon creating an instance of the class FileStorage
-        """
-        self.assertTrue(os.path.exists(FileStorage._FileStorage__file_path))
-    '''
-
-    '''
     def test_new(self):
         """Test for the new method"""
 
@@ -59,4 +50,13 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(isinstance(instances, dict))
         for key, value in instances.items():
             self.assertTrue(isinstance(value, dict))
-    '''
+
+    def test_save(self):
+        """Tests for the save method
+        """
+        pass
+
+    def test_reload():
+        """Tests for the reload method
+        """
+        pass
