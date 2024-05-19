@@ -69,12 +69,17 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = line.split()
+
         if args[0] not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
+
         if len(args) == 1:
             print("** instance id missing **")
             return
+
+        if args[1]:
+            args[1] = args[1].strip('"').strip("'")
 
         all_objs = storage.all()
         id_flag = False
@@ -84,6 +89,7 @@ class HBNBCommand(cmd.Cmd):
             if args[0] == class_name and args[1] == all_objs[obj_id].id:
                 id_flag = True
                 break
+
         if id_flag is False:
             print("** no instance found **")
             return
@@ -105,9 +111,13 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
+
         if len(args) == 1:
             print("** instance id missing **")
             return
+
+        if args[1]:
+            args[1] = args[1].strip('"').strip("'")
 
         all_objs = storage.all()
         id_flag = False
@@ -174,6 +184,9 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
 
+        if args[1]:
+            args[1] = args[1].strip('"').strip("'")
+
         id_flag = False
         for obj_id in all_objs.keys():
             cls = all_objs[obj_id].__class__.__name__
@@ -210,6 +223,57 @@ class HBNBCommand(cmd.Cmd):
                                 )
         storage.save()
         return
+
+    def do_count(self, line):
+        """Retrieves the number of instances of a class"""
+
+        args = line.split()
+        all_objs = storage.all()
+        count = 0
+        for key, obj in all_objs.items():
+            if args[0] == obj.__class__.__name__:
+                count += 1
+        print(count)
+        return
+
+    def precmd(self, line):
+        """Pre-process commands before dispatching"""
+
+        # command = line.split()[0]
+        # print(command)
+        pattern = re.compile(r'^(\w+)\.(\w+)\((.*)\)$')
+        match = pattern.match(line)
+        if match:
+            cls = match.group(1)
+            method = match.group(2)
+            args = match.group(3).split(', ')
+            if len(args) > 3:
+                args = args[0:3]
+                print(args)
+
+            if len(args) >= 1:
+                arg1 = args[0].strip('"').strip("'")
+            else:
+                arg1 = ""
+
+            if len(args) >= 2:
+                arg2 = args[1].strip('"').strip("'")
+            else:
+                arg2 = ""
+
+            if len(args) >= 3:
+                arg3 = args[2]
+            else:
+                arg3 = ""
+
+            # arg2 = match.group(4)
+            # arg3 = match.group(5)
+
+            line = "{:s} {:s} {:s} {:s} {:s}".format(
+                    method, cls, arg1, arg2, arg3
+                    )
+
+        return line
 
 
 if __name__ == '__main__':
