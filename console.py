@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """CMD module for AirBnB project"""
 import cmd
+import re
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -49,11 +50,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if line not in self.class_list:
+        if line not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
 
-        for clas in self.class_list:
+        for clas in HBNBCommand.class_list:
             if line == clas:
                 instance = eval(line)()
                 instance.save()
@@ -68,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = line.split()
-        if args[0] not in self.class_list:
+        if args[0] not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
         if len(args) == 1:
@@ -79,14 +80,17 @@ class HBNBCommand(cmd.Cmd):
         id_flag = False
 
         for obj_id in all_objs.keys():
-            if args[1] == all_objs[obj_id].id:
+            class_name = all_objs[obj_id].__class__.__name__
+            if args[0] == class_name and args[1] == all_objs[obj_id].id:
                 id_flag = True
+                break
         if id_flag is False:
             print("** no instance found **")
             return
 
         for obj_id in all_objs.keys():
-            if args[1] == all_objs[obj_id].id:
+            cls = all_objs[obj_id].__class__.__name__
+            if args[0] == cls and args[1] == all_objs[obj_id].id:
                 print(all_objs[obj_id])
         return
 
@@ -98,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = line.split()
-        if args[0] not in self.class_list:
+        if args[0] not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
         if len(args) == 1:
@@ -109,15 +113,18 @@ class HBNBCommand(cmd.Cmd):
         id_flag = False
 
         for obj_id in all_objs.keys():
-            if args[1] == all_objs[obj_id].id:
+            class_name = all_objs[obj_id].__class__.__name__
+            if args[0] == class_name and args[1] == all_objs[obj_id].id:
                 id_flag = True
+                break
 
         if id_flag is False:
             print("** no instance found **")
             return
 
         for obj_id in all_objs.keys():
-            if args[1] == all_objs[obj_id].id:
+            cls = all_objs[obj_id].__class__.__name__
+            if args[0] == cls and args[1] == all_objs[obj_id].id:
                 del all_objs[obj_id]
                 storage.save()
                 return
@@ -136,12 +143,13 @@ class HBNBCommand(cmd.Cmd):
             string_list = []
             return
 
-        if line not in self.class_list:
+        args = line.split()
+        if args[0] not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
 
         for key, obj in all_objs.items():
-            if line == obj.__class__.__name__:
+            if args[0] == obj.__class__.__name__:
                 string_list.append(str(obj))
         print(string_list)
         return
@@ -153,17 +161,12 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        args = line.split()
+        pattern = r'\".*?\"|\'.*?\'|\S+'
+        matches = re.findall(pattern, line)
+        args = [match.strip('"') for match in matches]
+        all_objs = storage.all()
 
-        if len(args) == 2:
-            print("** attribute name missing **")
-            return
-
-        if len(args) == 3:
-            print("** value missing **")
-            return
-
-        if args[0] not in self.class_list:
+        if args[0] not in HBNBCommand.class_list:
             print("** class doesn't exist **")
             return
 
@@ -171,15 +174,24 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
 
-        all_objs = storage.all()
         id_flag = False
-
         for obj_id in all_objs.keys():
-            if args[1] == all_objs[obj_id].id:
-                id_flag = True
+            cls = all_objs[obj_id].__class__.__name__
+            if len(args) >= 2:
+                if (args[0] == cls) and (args[1] == all_objs[obj_id].id):
+                    id_flag = True
+                    break
 
         if id_flag is False:
             print("** no instance found **")
+            return
+
+        if len(args) == 2:
+            print("** attribute name missing **")
+            return
+
+        if len(args) == 3:
+            print("** value missing **")
             return
 
         for key, obj in all_objs.items():
@@ -192,7 +204,10 @@ class HBNBCommand(cmd.Cmd):
                         args[3] = float(args[3])
                         setattr(obj, args[2], args[3])
                     except ValueError:
-                        setattr(obj, args[2], args[3].strip('"').strip("'"))
+                        setattr(
+                                obj, args[2].strip('"').strip("'"),
+                                args[3].strip('"').strip("'")
+                                )
         storage.save()
         return
 
