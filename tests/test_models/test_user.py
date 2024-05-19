@@ -10,7 +10,7 @@ from models.base_model import BaseModel
 from models.user import User
 
 
-class TestBase(unittest.TestCase):
+class TestUser(unittest.TestCase):
     """This class defines test suites"""
 
     def setUp(self):
