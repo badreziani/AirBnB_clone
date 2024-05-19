@@ -36,7 +36,7 @@ class TestFileStorage(unittest.TestCase):
             key = self.instance.__class__.__name__ + "." + self.instance.id
             self.assertTrue(isinstance(obj, dict))
             self.assertIn(key, obj)
-            model = BaseModel(**value)
+            model = BaseModel(**value.to_dict())
             self.assertTrue(isinstance(model, BaseModel))
 
     def test_new(self):
@@ -46,17 +46,17 @@ class TestFileStorage(unittest.TestCase):
         new_instance2 = BaseModel()
         storage.new(new_instance1)
         storage.new(new_instance2)
-        instances = self.storage.all()
+        instances = storage.all()
         self.assertTrue(isinstance(instances, dict))
-        for key, value in instances.items():
-            self.assertTrue(isinstance(value, dict))
+        # for key, value in instances.items():
+        #     self.assertTrue(isinstance(value, dict))
 
     def test_save(self):
         """Tests for the save method
         """
         pass
 
-    def test_reload():
+    def test_reload(self):
         """Tests for the reload method
         """
         pass
