@@ -5,6 +5,7 @@ from datetime import datetime
 import uuid
 import models
 
+
 class BaseModel:
     """This class defines a blueprint called BaseModel"""
 
