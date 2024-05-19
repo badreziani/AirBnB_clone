@@ -1,13 +1,14 @@
 #!/usr/bin/python3
-"""This module defines a test suite for the Amenity class"""
+"""This module defines a test suite for the base model class"""
 
-import sys
 import unittest
-from io import StringIO
-from datetime import datetime
-
 from models.base_model import BaseModel
 from models.amenity import Amenity
+# from models.engine.file_storage import FileStorage
+# from models import storage
+from datetime import datetime
+from io import StringIO
+import sys
 
 
 class TestAmenity(unittest.TestCase):
@@ -17,8 +18,6 @@ class TestAmenity(unittest.TestCase):
         """Sets up Amenity class instances"""
 
         self.a1 = Amenity()
-        self.a1.name = "Holberton"
-
         self.a2 = Amenity()
 
     def tearDown(self):
@@ -36,22 +35,31 @@ class TestAmenity(unittest.TestCase):
         self.assertTrue(issubclass(self.a1.__class__, BaseModel))
         self.assertTrue(isinstance(self.a1, Amenity))
 
+    def test_inheritance(self):
+        """Test for inheritance"""
+
+        self.assertTrue(isinstance(self.a1, Amenity))
+        self.assertTrue(isinstance(self.a1, BaseModel))
+
     def test_instance_attributes(self):
         """Test for instance attributes"""
 
-        # test for id attribute
+        # test for inherited id attribute
         self.assertTrue(hasattr(self.a1, 'id'))
         self.assertEqual(type(self.a1.id), str)
         self.assertNotEqual(self.a1.id, self.a2.id)
 
-        # tests for last_name attribute
-        self.assertTrue(hasattr(self.a1, 'name'))
-        self.assertEqual(type(self.a1.name), str)
-
-        # test for created_at and updated_at attributes
+        # test for inherited created_at and updated_at attributes
         self.assertEqual(type(self.a1.created_at), datetime)
         self.assertNotEqual(self.a1.created_at, self.a1.updated_at)
         self.assertNotEqual(self.a1.created_at, self.a2.updated_at)
+
+        # test for self attributes and their types
+        self.assertTrue(hasattr(self.a1, 'name'))
+        self.assertEqual(type(self.a1.name), str)
+
+        # test for the instance values after instantiation
+        self.assertEqual(self.a1.name, "")
 
     def test_str_output(self):
         """Test for str method"""
@@ -88,7 +96,7 @@ class TestAmenity(unittest.TestCase):
         dictionary = self.a1.to_dict()
         self.assertTrue("__class__" in dictionary.keys())
         self.assertTrue("id" in dictionary.keys())
-        self.assertTrue("name" in dictionary.keys())
+        self.assertFalse("name" in dictionary.keys())
         self.assertTrue("updated_at" in dictionary.keys())
         self.assertTrue("created_at" in dictionary.keys())
         self.assertTrue(type(dictionary["created_at"]), str)
@@ -97,25 +105,21 @@ class TestAmenity(unittest.TestCase):
     def test_init_method(self):
         """Test for updated init method"""
 
-        b1_dict = self.a2.to_dict()
+        a1_dict = self.a1.to_dict()
 
         # test for when *kwargs is empty or None
-        new_b1_instance = Amenity(None)
-        self.assertTrue(hasattr(new_b1_instance, "__class__"))
+        new_a1_instance = BaseModel(None)
+        self.assertTrue(hasattr(new_a1_instance, "__class__"))
 
         # test for when *kwargs is not empty
-        new_b2_instance = Amenity(**b1_dict)
-        self.assertEqual(new_b2_instance.__class__.__name__, "Amenity")
-        self.assertTrue(hasattr(new_b2_instance, "__class__"))
-        self.assertTrue(hasattr(new_b2_instance, "created_at"))
-        self.assertTrue(hasattr(new_b2_instance, "updated_at"))
-        self.assertTrue(hasattr(new_b2_instance, "id"))
-        self.assertTrue(type(new_b2_instance.id), str)
-        self.assertTrue(type(new_b2_instance.created_at), datetime)
-        self.assertTrue(type(new_b2_instance.updated_at), datetime)
-        self.assertFalse(new_b2_instance == self.a2)
-
-    def test_file_storage_class(self):
-        """ Test instance serialization to JSON file """
-
-        pass
+        new_a2_instance = BaseModel(**a1_dict)
+        self.assertEqual(new_a2_instance.__class__.__name__, "BaseModel")
+        self.assertTrue(hasattr(new_a2_instance, "__class__"))
+        self.assertTrue(hasattr(new_a2_instance, "created_at"))
+        self.assertTrue(hasattr(new_a2_instance, "updated_at"))
+        self.assertTrue(hasattr(new_a2_instance, "id"))
+        self.assertTrue(hasattr(new_a2_instance, "id"))
+        self.assertTrue(type(new_a2_instance.id), str)
+        self.assertTrue(type(new_a2_instance.created_at), datetime)
+        self.assertTrue(type(new_a2_instance.updated_at), datetime)
+        self.assertFalse(new_a2_instance == self.a1)

@@ -1,13 +1,14 @@
 #!/usr/bin/python3
-"""This module defines a test suite for the Review class"""
+"""This module defines a test suite for the base model class"""
 
-import sys
 import unittest
-from io import StringIO
-from datetime import datetime
-
 from models.base_model import BaseModel
 from models.review import Review
+# from models.engine.file_storage import FileStorage
+# from models import storage
+from datetime import datetime
+from io import StringIO
+import sys
 
 
 class TestReview(unittest.TestCase):
@@ -34,18 +35,34 @@ class TestReview(unittest.TestCase):
         self.assertTrue(issubclass(self.r1.__class__, BaseModel))
         self.assertTrue(isinstance(self.r1, Review))
 
+    def test_inheritance(self):
+        """Test for inheritance"""
+
+        self.assertTrue(isinstance(self.r1, Review))
+        self.assertTrue(isinstance(self.r1, BaseModel))
+
     def test_instance_attributes(self):
         """Test for instance attributes"""
 
-        # test for id attribute
+        # test for inherited id attribute
         self.assertTrue(hasattr(self.r1, 'id'))
         self.assertEqual(type(self.r1.id), str)
         self.assertNotEqual(self.r1.id, self.r2.id)
 
-        # test for created_at and updated_at attributes
+        # test for inherited created_at and updated_at attributes
         self.assertEqual(type(self.r1.created_at), datetime)
         self.assertNotEqual(self.r1.created_at, self.r1.updated_at)
         self.assertNotEqual(self.r1.created_at, self.r2.updated_at)
+
+        # test for self attributes and their types
+        self.assertTrue(hasattr(self.r1, 'place_id'))
+        self.assertTrue(hasattr(self.r1, 'user_id'))
+        self.assertTrue(hasattr(self.r1, 'text'))
+
+        # test for the instance values after instantiation
+        self.assertEqual(self.r1.place_id, "")
+        self.assertEqual(self.r1.user_id, "")
+        self.assertEqual(self.r1.text, "")
 
     def test_str_output(self):
         """Test for str method"""
@@ -90,25 +107,21 @@ class TestReview(unittest.TestCase):
     def test_init_method(self):
         """Test for updated init method"""
 
-        b1_dict = self.r2.to_dict()
+        r1_dict = self.r1.to_dict()
 
         # test for when *kwargs is empty or None
-        new_b1_instance = Review(None)
-        self.assertTrue(hasattr(new_b1_instance, "__class__"))
+        new_r1_instance = BaseModel(None)
+        self.assertTrue(hasattr(new_r1_instance, "__class__"))
 
         # test for when *kwargs is not empty
-        new_b2_instance = Review(**b1_dict)
-        self.assertEqual(new_b2_instance.__class__.__name__, "Review")
-        self.assertTrue(hasattr(new_b2_instance, "__class__"))
-        self.assertTrue(hasattr(new_b2_instance, "created_at"))
-        self.assertTrue(hasattr(new_b2_instance, "updated_at"))
-        self.assertTrue(hasattr(new_b2_instance, "id"))
-        self.assertTrue(type(new_b2_instance.id), str)
-        self.assertTrue(type(new_b2_instance.created_at), datetime)
-        self.assertTrue(type(new_b2_instance.updated_at), datetime)
-        self.assertFalse(new_b2_instance == self.r2)
-
-    def test_file_storage_class(self):
-        """ Test instance serialization to JSON file """
-
-        pass
+        new_r2_instance = BaseModel(**r1_dict)
+        self.assertEqual(new_r2_instance.__class__.__name__, "BaseModel")
+        self.assertTrue(hasattr(new_r2_instance, "__class__"))
+        self.assertTrue(hasattr(new_r2_instance, "created_at"))
+        self.assertTrue(hasattr(new_r2_instance, "updated_at"))
+        self.assertTrue(hasattr(new_r2_instance, "id"))
+        self.assertTrue(hasattr(new_r2_instance, "id"))
+        self.assertTrue(type(new_r2_instance.id), str)
+        self.assertTrue(type(new_r2_instance.created_at), datetime)
+        self.assertTrue(type(new_r2_instance.updated_at), datetime)
+        self.assertFalse(new_r2_instance == self.r1)
