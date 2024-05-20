@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 from io import StringIO
 from console import HBNBCommand
+import sys
 
 
 class TestHBNBCommand(unittest.TestCase):
@@ -15,6 +16,13 @@ class TestHBNBCommand(unittest.TestCase):
     def setUp(self):
         """Set up test environment"""
         self.console = HBNBCommand()
+        self.std_out = StringIO()
+        sys.stdout = self.std_out
+
+    def tearDown(self):
+        """Tear down console object"""
+        self.std_out.close()
+        sys.stdout = sys.__stdout__
 
     '''
     def test_help(self):
@@ -31,6 +39,5 @@ class TestHBNBCommand(unittest.TestCase):
     def test_quit(self):
         """Test quit command"""
 
-        with patch('sys.stdout', new=StringIO()) as f:
-            self.console.onecmd("quit")
-            self.assertEqual(f.getvalue(), "")
+        self.console.onecmd("quit")
+        self.assertEqual(self.std_out.getvalue(), "")
