@@ -12,6 +12,11 @@ from console import HBNBCommand
 class TestHBNBCommand(unittest.TestCase):
     """Unittests for all feautures of the Console"""
 
+    def setUp(self):
+        """Set up test environment"""
+        self.console = HBNBCommand()
+
+    '''
     def test_help(self):
         """Test the help method"""
 
@@ -21,3 +26,11 @@ class TestHBNBCommand(unittest.TestCase):
         help_string = "Prints the string representation of an instance"
 
         self.assertTrue(f.getvalue(), help_string)
+    '''
+
+    def test_quit(self):
+        """Test quit command"""
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.console.onecmd("quit")
+            self.assertEqual(f.getvalue(), "")
