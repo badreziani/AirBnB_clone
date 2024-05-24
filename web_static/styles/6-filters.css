@@ -71,9 +71,11 @@
 	border-radius: 4px;
 }
 .popover li {
-	margin-left: 10px;
+	margin-left: 15px;
 }
 .popover li h2 {
 	font-size: 16px;
-	padding: 0px
+	padding: 0px;
+	margin-bottom: 0px;
+	margin-left:-5px
 }
