@@ -14,11 +14,13 @@
 	padding: 20px;
 	border: 1px solid #FF5A5F;
 	border-radius: 4px;
+	position: relative
 }
 
 .places article:nth-of-type(2) {
 	margin-left: -4px
 }
+
 .places article h2 {
 	font-size: 30px;
 }
