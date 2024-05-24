@@ -4,7 +4,7 @@ header {
 	width: 100%;
 	border-bottom: 1px solid #CCCCCC
 }
-header .logo {
+header > div {
 	background-image: url("../images/logo.png");
 	background-repeat: no-repeat;
 	margin: 5px 20px;
