@@ -53,11 +53,19 @@
 }
 
 .popover {
+	position: absolute;
+	top: 100%;
+	padding: 0px;
 	list-style: none;
 	width: 100%;
 	padding: 8px;
 	border: 1px solid #DDDDDD;
 }
+.popover li {
+	margin-left: 15px;
+}
 .popover li h2 {
-	font-size: 16px
+	margin-left:10px;
+	font-size: 16px;
+	padding: 0px
 }
