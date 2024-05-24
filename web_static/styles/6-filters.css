@@ -35,6 +35,11 @@
 	border-right: 1px solid #DDDDDD
 }
 
+.filters > div:last-of-type {
+        border-right: 1px solid #DDDDDD;
+	margin-left: -4px;
+}
+
 .filters > div > h3 {
 	font-weight: 600;
 	margin-top: 11px;
@@ -60,6 +65,7 @@
 	padding: 0px;
 	list-style: none;
 	width: 100%;
+	margin-left: -1px;
 	margin-top: 0px;
 	padding: 8px;
 	border: 1px solid #DDDDDD;
