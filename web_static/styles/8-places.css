@@ -45,7 +45,8 @@
 	border-top: 1px solid #DDDDDD;
 	border-bottom: 1px solid #DDDDDD;
 	display: flex;
-	justify-content: space-around
+	justify-content: space-around;
+	align-items: center
 }
 
 .information > div {
@@ -69,4 +70,12 @@
 
 .number_bathrooms > div {
 	background: url('../images/icon_bath.png');
+}
+
+.user, .description {
+	text-align: left
+}
+
+.user > span {
+	font-weight: bold
 }
