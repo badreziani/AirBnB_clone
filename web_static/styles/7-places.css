@@ -1,8 +1,9 @@
 .places {
-
+	text-align: center
 }
 
-.places h1 h2{
+.places h1{
+	text-align: left;
 	font-size: 30px;
 }
 
@@ -19,5 +20,5 @@
 	margin-left: -4px
 }
 .places article h2 {
-	text-align: center
+	font-size: 30px;
 }
