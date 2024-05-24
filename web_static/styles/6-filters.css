@@ -5,7 +5,6 @@
 	border: 1px solid #DDDDDD;
 	border-radius: 4px;
 	position: relative;
-	padding: 0px
 }
 
 .filters button {
@@ -29,7 +28,8 @@
 	display: inline-block;
 	height: 100%;
 	width: 25%;
-	position: relative
+	position: relative;
+	padding: 0px
 }
 
 .filters > div:first-of-type {
