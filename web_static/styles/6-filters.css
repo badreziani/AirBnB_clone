@@ -58,12 +58,14 @@
 }
 
 .popover {
+	display: none;
 	box-sizing: border-box;
 	position: absolute;
 	top: 100%;
 	left: 0px;
 	padding: 0px;
 	list-style: none;
+	background-color: #FAFAFA;
 	width: 100%;
 	margin-top: 0px;
 	padding: 8px;
@@ -78,4 +80,7 @@
 	padding: 0px;
 	margin-bottom: 0px;
 	margin-left:-5px
+}
+.filters > div:hover .popover {
+	display: block;
 }
