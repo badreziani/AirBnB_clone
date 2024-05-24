@@ -78,8 +78,7 @@
 .popover li h2 {
 	font-size: 16px;
 	padding: 0px;
-	margin-bottom: 0px;
-	margin-left:-5px
+	margin: 15px auto 0px -5px;
 }
 .filters > div:hover .popover {
 	display: block;
