@@ -57,13 +57,13 @@
 }
 
 .max_guest > div {
-	background: url('../icon_group.png');
+	background: url('../images/icon_group.png');
 }
 
 .number_rooms > div {
-	background: url('../icon_bed.png');
+	background: url('../images/icon_bed.png');
 }
 
 .number_bathrooms > div {
-	background: url('../icon_bath.png');
+	background: url('../images/icon_bath.png');
 }
