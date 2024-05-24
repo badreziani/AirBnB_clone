@@ -22,3 +22,15 @@
 .places article h2 {
 	font-size: 30px;
 }
+
+.price_by_night {
+	color: #FF5A5F;
+	border: #FF5A5F;
+	min-width: 60px;
+	height: 60px;
+	font-size: 30px;
+	position: absolute;
+	top: 20px;
+	right: 20px
+
+}
