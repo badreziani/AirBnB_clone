@@ -36,7 +36,7 @@
 }
 
 .filters > div:last-of-type {
-        border-right: 1px solid #DDDDDD;
+        /* border-right: 1px solid #DDDDDD; */
 	margin-left: -4px;
 }
 

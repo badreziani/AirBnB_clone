@@ -34,6 +34,10 @@
 	border-right: 1px solid #DDDDDD
 }
 
+.filters > div:last-of-type {
+	margin-left: -4px;
+}
+
 .filters > div > h3 {
 	font-weight: 600;
 	margin-top: 11px;
