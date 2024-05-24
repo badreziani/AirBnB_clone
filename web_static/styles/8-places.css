@@ -74,6 +74,10 @@
 	background: url('../images/icon_bath.png');
 }
 
+.user {
+	margin: 10px 0:
+}
+
 .user, .description {
 	text-align: left
 }
