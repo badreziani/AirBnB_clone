@@ -24,7 +24,7 @@
 	opacity: 0.9
 }
 
-.filter > div {
+.filters > div {
 	display: inline-block;
 	height: 100%;
 	width: 25%;
