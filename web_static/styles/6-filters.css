@@ -53,11 +53,13 @@
 }
 
 .popover {
+	box-sizing: border-box;
 	position: absolute;
 	top: 100%;
 	padding: 0px;
 	list-style: none;
 	width: 100%;
+	margin-top: 0px;
 	padding: 8px;
 	border: 1px solid #DDDDDD;
 }
