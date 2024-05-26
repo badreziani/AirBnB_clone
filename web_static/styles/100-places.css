@@ -117,15 +117,15 @@
 	margin-right: 10px;
 }
 
-.places .amenities > ul > li > div.tv {
+.places .tv {
 	background-image: url("../images/icon_tv.png");
 }
 
-.places .amenities > ul > li > div.wifi {
+.places .wifi {
 	background-image: url("../images/icon_wifi.png");
 }
 
-.places .amenities > ul > li > div.pets {
+.places .pets {
 	background-image: url("../images/icon_pets.png");
 }
 
