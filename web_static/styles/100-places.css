@@ -117,15 +117,15 @@
 	margin-right: 10px;
 }
 
-.places .amenities > ul > li:first-of-type > div {
+.places .amenities > ul > li > div.tv {
 	background-image: url("../images/icon_tv.png");
 }
 
-.places .amenities > ul > li:nth-of-type(2) > div {
+.places .amenities > ul > li > div.wifi {
 	background-image: url("../images/icon_wifi.png");
 }
 
-.places .amenities > ul > li:last-of-type > div {
+.places .amenities > ul > li > div.pets {
 	background-image: url("../images/icon_pets.png");
 }
 
