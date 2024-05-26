@@ -85,3 +85,63 @@
 .user > span {
 	font-weight: bold
 }
+
+.places .amenities {
+	text-align: left;
+	margin-top: 40px;
+}
+
+.places .amenities > h2 {
+	font-size: 16px;
+	border-bottom: 1px solid #dddddd;
+	padding-bottom: 10px;
+}
+
+.places .amenities > ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.places .amenities > ul > li {
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+}
+.places .amenities > ul > li > div {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin-right: 10px;
+}
+
+.places .amenities > ul > li:first-of-type > div {
+	background-image: url("../images/icon_tv.png");
+}
+
+.places .amenities > ul > li:nth-of-type(2) > div {
+	background-image: url("../images/icon_wifi.png");
+}
+
+.places .amenities > ul > li:last-of-type > div {
+	background-image: url("../images/icon_pets.png");
+}
+
+.places .reviews {
+	text-align: left;
+	margin-top: 40px;
+}
+
+.places .reviews > h2 {
+	font-size: 16px;
+	border-bottom: 1px solid #dddddd;
+	padding-bottom: 10px;
+}
+
+.places .reviews > ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
