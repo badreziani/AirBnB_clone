@@ -111,8 +111,9 @@
 }
 .places .amenities > ul > li > div {
 	display: inline-block;
-	width: 50px;
-	height: 50px;
+	width: 32px;
+	height: 32px;
+	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
 	margin-right: 10px;
