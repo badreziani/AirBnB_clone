@@ -1,46 +1,50 @@
 .places {
-	text-align: center;
+	/* text-align: center;
 	padding-bottom: 60px;
+	flex-wrap: wrap;
+	justify-content: center; */
+	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	gap: 10px;
 }
 
 .places h1 {
-	text-align: left;
-	font-size: 30px;
 	width: 100%;
 }
 
 .places article {
-	width: 390px;
-	margin: 20px;
-	padding: 20px;
+	padding: 10px;
 	border: 1px solid #ff5a5f;
 	border-radius: 4px;
-	position: relative;
+	width: 100%;
 }
 
 .places article h2 {
-	font-size: 30px;
+	/* font-size: 30px; */
 }
 
-.price_by_night {
-	color: #ff5a5f;
+.places article > div {
+	width: 100%;
+	background-color: black;
+}
+.places article > div:first-of-type {
 	border: 4px solid #ff5a5f;
-	border-radius: 50%;
+	color: #ff5a5f;
 	min-width: 60px;
 	height: 60px;
-	font-size: 30px;
+	width: 60px;
 	text-align: center;
-	line-height: 60px;
-	position: absolute;
-	top: 20px;
-	right: 20px;
+	border-radius: 50%;
+	font-size: 1.4rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .information {
-	height: 80px;
+	width: 100;
+	/* height: 80px; */
 	border-top: 1px solid #dddddd;
 	border-bottom: 1px solid #dddddd;
 	display: flex;
