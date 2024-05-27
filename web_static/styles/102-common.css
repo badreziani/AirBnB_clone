@@ -14,8 +14,21 @@ body {
 }
 
 .container {
+	background-color: blue;
+	height: 100%;
+	margin: 10px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* .container {
+	flex: 1;
 	max-width: 1000px;
 	margin: 30px auto;
 	display: flex;
 	flex-direction: column;
-}
+	align-items: center;
+} */
+
