@@ -7,7 +7,7 @@ header {
 header > div {
 	background-image: url("../images/logo.png");
 	background-repeat: no-repeat;
-	margin: 5px 20px;
+	margin-left: 20px;
 	width: 142px;
 	height: 60px;
 }
