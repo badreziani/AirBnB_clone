@@ -68,3 +68,35 @@
 .filters > div:hover .popover {
 	display: block;
 }
+
+/** MEDIA QUERIES **/
+
+@media (min-width: 768px) {
+	.filters {
+		flex-direction: row;
+	}
+	.filters > div {
+		order: 0;
+		width: 25%;
+		position: relative;
+		padding: 5px 15px;
+	}
+	.filters .locations {
+		border-right: 1px solid #dddddd;
+	}
+
+	.filters > div > h3 {
+		margin-left: 0px;
+	}
+	.filters > div > h4:first-of-type {
+		margin-left: 0px;
+	}
+	.filters button {
+		width: 20%;
+		margin-left: auto;
+	}
+	.popover {
+		position: absolute;
+		top: 100%;
+	}
+}

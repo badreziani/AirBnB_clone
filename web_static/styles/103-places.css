@@ -1,8 +1,4 @@
 .places {
-	/* text-align: center;
-	padding-bottom: 60px;
-	flex-wrap: wrap;
-	justify-content: center; */
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
@@ -11,6 +7,8 @@
 
 .places h1 {
 	width: 100%;
+	margin: 5px;
+	margin-bottom: 0px;
 }
 
 .places article {
@@ -18,15 +16,21 @@
 	border: 1px solid #ff5a5f;
 	border-radius: 4px;
 	width: 100%;
+	margin: 0px 5px 5px;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .places article h2 {
 	/* font-size: 30px; */
+	flex: 1;
+	display: flex;
+	align-items: center;
 }
 
 .places article > div {
 	width: 100%;
-	background-color: black;
+	padding: 10px;
 }
 .places article > div:first-of-type {
 	border: 4px solid #ff5a5f;
@@ -44,7 +48,6 @@
 
 .information {
 	width: 100;
-	/* height: 80px; */
 	border-top: 1px solid #dddddd;
 	border-bottom: 1px solid #dddddd;
 	display: flex;
@@ -149,4 +152,15 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+}
+
+/** MEDIA QUERIES **/
+
+@media (min-width: 768px) {
+	.places {
+		justify-content: center;
+	}
+	.places article {
+		width: 340px;
+	}
 }
